@@ -28,6 +28,14 @@ module.exports = class extends Generator {
       this.templatePath('Deploy-AzureResourceGroup.ps1'),
       this.destinationPath('Deploy-AzureResourceGroup.ps1')
     );
+    this.fs.copy(
+      this.templatePath('azuredeploy.json'),
+      this.destinationPath('azuredeploy.json')
+    );
+    this.fs.copy(
+      this.templatePath('azuredeploy.parameters.json'),
+      this.destinationPath('azuredeploy.parameters.json')
+    );
   }
 
   install() {

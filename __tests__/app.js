@@ -12,5 +12,7 @@ describe('arm-template:app', () => {
 
   it('creates files', () => {
     assert.file(['Deploy-AzureResourceGroup.ps1']);
+    assert.file(['azuredeploy.json']);
+    assert.file(['azuredeploy.parameters.json']);
   });
 });
