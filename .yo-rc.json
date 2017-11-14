@@ -1,0 +1,9 @@
+{
+  "generator-node": {
+    "promptValues": {
+      "authorName": "Brian Farnhill",
+      "authorEmail": "brian@farnhill.net",
+      "authorUrl": "http://brianfarnhill.com"
+    }
+  }
+}
