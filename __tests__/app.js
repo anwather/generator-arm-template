@@ -11,6 +11,6 @@ describe('arm-template:app', () => {
   });
 
   it('creates files', () => {
-    assert.file(['dummyfile.txt']);
+    assert.file(['Deploy-AzureResourceGroup.ps1']);
   });
 });
