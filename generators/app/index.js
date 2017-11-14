@@ -6,11 +6,7 @@ const yosay = require('yosay');
 module.exports = class extends Generator {
   prompting() {
     // Have Yeoman greet the user.
-    this.log(
-      yosay(
-        'Welcome to the unreal ' + chalk.red('generator-arm-template') + ' generator!'
-      )
-    );
+    this.log(yosay('Welcome to the unreal ' + chalk.red('arm-template') + ' generator!'));
 
     const prompts = [
       {

@@ -1,5 +1,5 @@
 {
-  "name": "generator-arm-template",
+  "name": "arm-template",
   "version": "0.0.0",
   "description": "ARM Template Generator for Yoeman",
   "homepage": "https://github.com/BrianFarnhill/YoArmTemplate",
