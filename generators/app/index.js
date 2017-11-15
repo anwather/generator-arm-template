@@ -36,7 +36,8 @@ module.exports = class extends Generator {
       {
         type: 'input',
         name: 'region',
-        message: 'What Azure region would you like to deploy to?'
+        message: 'What Azure region would you like to deploy to?',
+        store: true
       }
     ];
 

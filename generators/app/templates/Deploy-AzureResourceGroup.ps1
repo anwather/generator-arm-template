@@ -1,7 +1,7 @@
 #Requires -Version 3.0
 
 Param(
-    [string] [Parameter(Mandatory=$true)] $ResourceGroupLocation = '<%= region %>',
+    [string] [Parameter(Mandatory=$false)] $ResourceGroupLocation = '<%= region %>',
     [string] $ResourceGroupName = '<%= rgName %>',
     [switch] $UploadArtifacts,
     [string] $StorageAccountName,
@@ -13,12 +13,60 @@ Param(
     [switch] $ValidateOnly
 )
 
-try {
-    [Microsoft.Azure.Common.Authentication.AzureSession]::ClientFactory.AddUserAgent("YeomonArmTemplate-$($host.name)".replace(' ','_'), '1.0.0')
-} catch { }
-
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version 3
+
+$azCtx = Get-AzureRmContext
+if ($null -eq $azCtx.Account)
+{
+    try
+    {
+        Write-Verbose -Message "Prompting for Azure Resource Manager credentials"
+        Add-AzureRmAccount
+        if ($? -eq $false)
+        {
+            throw $Error
+        }
+        else
+        {
+            $loginSucceeded = $true
+        }
+    }
+    catch
+    {
+        $Error
+        if ($Error[2] -like "*User canceled authentication*")
+        {
+            throw "User canceled authentication"
+        }
+        else
+        {
+            throw "No credentials were provided, or another error occurred logging on to Azure."
+        }
+    }
+
+    if ($loginSucceeded)
+    {
+        [array]$subscriptions = Get-AzureRmSubscription -WarningAction SilentlyContinue
+        # Prompt for a subscription in case we have more than one
+        if ($subscriptions.Count -gt 1)
+        {
+            Write-Verbose -Message "Prompting for subscription..."
+            $subscriptionDetails = Get-AzureRmSubscription -WarningAction SilentlyContinue `
+                                    | Out-GridView -Title "Select ONE subscription..." -PassThru
+    
+            if ($null -eq $subscriptionDetails)
+            {
+                throw " - A subscription must be selected."
+            }
+            elseif ($subscriptionDetails.Count -gt 1)
+            {
+                throw " - Please select *only one* subscription."
+            }
+            Select-AzureRmSubscription -SubscriptionName $subscriptionDetails.SubscriptionName
+        }
+    }
+}
 
 function Format-ValidationOutput {
     param ($ValidationOutput, [int] $Depth = 0)
@@ -30,7 +78,8 @@ $OptionalParameters = New-Object -TypeName Hashtable
 $TemplateFile = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($PSScriptRoot, $TemplateFile))
 $TemplateParametersFile = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($PSScriptRoot, $TemplateParametersFile))
 
-if ($UploadArtifacts) {
+if ($UploadArtifacts) 
+{
     # Convert relative paths to absolute paths if needed
     $ArtifactStagingDirectory = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($PSScriptRoot, $ArtifactStagingDirectory))
     $DSCSourceFolder = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($PSScriptRoot, $DSCSourceFolder))
@@ -46,7 +95,8 @@ if ($UploadArtifacts) {
     $OptionalParameters[$ArtifactsLocationSasTokenName] = $JsonParameters | Select -Expand $ArtifactsLocationSasTokenName -ErrorAction Ignore | Select -Expand 'value' -ErrorAction Ignore
 
     # Create DSC configuration archive
-    if (Test-Path $DSCSourceFolder) {
+    if (Test-Path $DSCSourceFolder) 
+    {
         $DSCSourceFilePaths = @(Get-ChildItem $DSCSourceFolder -File -Filter '*.ps1' | ForEach-Object -Process {$_.FullName})
         foreach ($DSCSourceFilePath in $DSCSourceFilePaths) {
             $DSCArchiveFilePath = $DSCSourceFilePath.Substring(0, $DSCSourceFilePath.Length - 4) + '.zip'
