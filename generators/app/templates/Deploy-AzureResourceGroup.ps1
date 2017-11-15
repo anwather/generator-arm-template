@@ -1,8 +1,8 @@
 #Requires -Version 3.0
 
 Param(
-    [string] [Parameter(Mandatory=$true)] $ResourceGroupLocation,
-    [string] $ResourceGroupName = 'AzureResourceGroup',
+    [string] [Parameter(Mandatory=$true)] $ResourceGroupLocation = '<%= region %>',
+    [string] $ResourceGroupName = '<%= rgName %>',
     [switch] $UploadArtifacts,
     [string] $StorageAccountName,
     [string] $StorageContainerName = $ResourceGroupName.ToLowerInvariant() + '-stageartifacts',
