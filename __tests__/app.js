@@ -3,10 +3,10 @@ const path = require('path');
 const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
 
-describe('generator-arm-template:arm-template', () => {
+describe('generator-arm-template:app', () => {
   beforeAll(() => {
     return helpers
-      .run(path.join(__dirname, '../generators/arm-template'))
+      .run(path.join(__dirname, '../generators/app'))
       .withPrompts({ someAnswer: true });
   });
 

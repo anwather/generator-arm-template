@@ -1,8 +1,8 @@
 {
   "name": "generator-arm-template",
   "version": "0.0.0",
-  "description": "ARM Template Generator for Yoeman",
-  "homepage": "https://github.com/BrianFarnhill/YoArmTemplate",
+  "description": "Azure Resource Manager template package for VS Code",
+  "homepage": "https://github.com/BrianFarnhill/generator-arm-template",
   "author": {
     "name": "Brian Farnhill",
     "email": "brian@farnhill.net",
@@ -10,11 +10,10 @@
   },
   "files": ["generators"],
   "main": "generators/index.js",
-  "keywords": ["Azure", "Arm", "yeoman-generator"],
+  "keywords": ["ARM", "Azure", "Resource Manager", "yeoman-generator"],
   "devDependencies": {
     "yeoman-test": "^1.7.0",
     "yeoman-assert": "^3.1.0",
-    "coveralls": "^2.13.1",
     "nsp": "^2.6.3",
     "eslint": "^4.1.0",
     "prettier": "^1.7.0",
@@ -61,6 +60,6 @@
     },
     "plugins": ["prettier"]
   },
-  "repository": "https://github.com/BrianFarnhill/YoArmTemplate.git",
+  "repository": "https://github.com/BrianFarnhill/generator-arm-template.git",
   "license": "MIT"
 }
