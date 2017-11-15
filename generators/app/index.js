@@ -1,23 +1,42 @@
 'use strict';
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');
-const yosay = require('yosay');
 
 module.exports = class extends Generator {
   prompting() {
     // Have Yeoman greet the user.
     this.log(
-      yosay(
-        'Welcome to the terrific ' + chalk.red('generator-arm-template') + ' generator!'
-      )
+      chalk.blue('                          A                       \n') +
+        chalk.blue('                       AAAA                       \n') +
+        chalk.blue('                     AAAAAA AAA                   \n') +
+        chalk.blue('                  AAAAAAA  AAAAA                  \n') +
+        chalk.blue('                AAAAAAAA  AAAAAAA                 \n') +
+        chalk.blue('              AAAAAAAAA  AAAAAAAAA                \n') +
+        chalk.blue('            AAAAAAAAAA  AAAAAAAAAAA               \n') +
+        chalk.blue('           AAAAAAAAAA  AAAAAAAAAAAAAA             \n') +
+        chalk.blue('          AAAAAAAAAA  AAAAAAAAAAAAAAAA            \n') +
+        chalk.blue('         AAAAAAAAAA   AAAAAAAAAAAAAAAAA           \n') +
+        chalk.blue('        AAAAAAAAAA      AAAAAAAAAAAAAAAA          \n') +
+        chalk.blue('      AAAAAAAAAAA         AAAAAAAAAAAAAAA         \n') +
+        chalk.blue('     AAAAAAAAAAA            AAAAAAAAAAAAAA        \n') +
+        chalk.blue('    AAAAAAAAAAA               AAAAAAAAAAAAAA      \n') +
+        chalk.blue('   AAAAAAAAAAA                 AAAAAAAAAAAAAA     \n') +
+        chalk.blue('   AAAAAAAAAA                 AAAAAAAAAAAAAAAA    \n') +
+        chalk.blue('                  AAAAAAAAAAAAAAAAAAAAAAAAAAAAA   \n') +
+        chalk.blue('               AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA   \n') +
+        '\n\nWelcome to the Azure ARM Template project generator!\n'
     );
 
     const prompts = [
       {
-        type: 'confirm',
-        name: 'someAnswer',
-        message: 'Would you like to enable this option?',
-        default: true
+        type: 'input',
+        name: 'rgName',
+        message: 'What resource group name would you like to use?'
+      },
+      {
+        type: 'input',
+        name: 'region',
+        message: 'What Azure region would you like to deploy to?'
       }
     ];
 
@@ -28,9 +47,13 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    this.fs.copy(
+    this.fs.copyTpl(
       this.templatePath('Deploy-AzureResourceGroup.ps1'),
-      this.destinationPath('Deploy-AzureResourceGroup.ps1')
+      this.destinationPath('Deploy-AzureResourceGroup.ps1'),
+      {
+        rgName: this.props.rgName,
+        region: this.props.region
+      }
     );
     this.fs.copy(
       this.templatePath('azuredeploy.json'),
