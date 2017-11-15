@@ -2,7 +2,7 @@
 
 Param(
     [string] [Parameter(Mandatory=$true)] $ResourceGroupLocation,
-    [string] $ResourceGroupName = 'AzureResourceGroup4',
+    [string] $ResourceGroupName = 'AzureResourceGroup',
     [switch] $UploadArtifacts,
     [string] $StorageAccountName,
     [string] $StorageContainerName = $ResourceGroupName.ToLowerInvariant() + '-stageartifacts',
@@ -14,7 +14,7 @@ Param(
 )
 
 try {
-    [Microsoft.Azure.Common.Authentication.AzureSession]::ClientFactory.AddUserAgent("VSAzureTools-$UI$($host.name)".replace(' ','_'), '3.0.0')
+    [Microsoft.Azure.Common.Authentication.AzureSession]::ClientFactory.AddUserAgent("YeomonArmTemplate-$($host.name)".replace(' ','_'), '1.0.0')
 } catch { }
 
 $ErrorActionPreference = 'Stop'

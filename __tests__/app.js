@@ -14,5 +14,6 @@ describe('arm-template:app', () => {
     assert.file(['Deploy-AzureResourceGroup.ps1']);
     assert.file(['azuredeploy.json']);
     assert.file(['azuredeploy.parameters.json']);
+    assert.file(['.vscode/launch.json']);
   });
 });

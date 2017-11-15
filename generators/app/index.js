@@ -36,6 +36,10 @@ module.exports = class extends Generator {
       this.templatePath('azuredeploy.parameters.json'),
       this.destinationPath('azuredeploy.parameters.json')
     );
+    this.fs.copy(
+      this.templatePath('.vscode/launch.json'),
+      this.destinationPath('.vscode/launch.json')
+    );
   }
 
   install() {
