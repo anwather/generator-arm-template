@@ -19,8 +19,8 @@ cache:
   - node_modules -> package.json
   - '%APPDATA%\npm-cache'
 
-test:
-  - npm test
+test_script:
+- cmd: npm test
 
 deploy_script:
   - ps: |
