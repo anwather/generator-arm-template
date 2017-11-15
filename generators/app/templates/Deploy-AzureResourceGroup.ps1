@@ -52,8 +52,8 @@ if ($null -eq $azCtx.Account)
         if ($subscriptions.Count -gt 1)
         {
             Write-Verbose -Message "Prompting for subscription..."
-            $subscriptionDetails = Get-AzureRmSubscription -WarningAction SilentlyContinue `
-                                    | Out-GridView -Title "Select ONE subscription..." -PassThru
+            $subscriptionDetails = @(Get-AzureRmSubscription -WarningAction SilentlyContinue `
+                                    | Out-GridView -Title "Select ONE subscription..." -PassThru)
     
             if ($null -eq $subscriptionDetails)
             {
@@ -63,7 +63,7 @@ if ($null -eq $azCtx.Account)
             {
                 throw " - Please select *only one* subscription."
             }
-            Select-AzureRmSubscription -SubscriptionName $subscriptionDetails.SubscriptionName
+            Select-AzureRmSubscription -SubscriptionName $subscriptionDetails[0].SubscriptionName
         }
     }
 }
