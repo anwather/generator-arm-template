@@ -5,9 +5,10 @@ const helpers = require('yeoman-test');
 
 describe('generator-arm-template:app', () => {
   beforeAll(() => {
-    return helpers
-      .run(path.join(__dirname, '../generators/app'))
-      .withPrompts({ someAnswer: true });
+    return helpers.run(path.join(__dirname, '../generators/app')).withPrompts({
+      rgName: 'rgNameTest',
+      region: 'regionTest'
+    });
   });
 
   it('creates files', () => {
