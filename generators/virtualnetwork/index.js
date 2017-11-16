@@ -88,7 +88,8 @@ module.exports = class extends Generator {
             }
           }
         ]
-      }
+      },
+      dependsOn: []
     });
 
     this.fs.writeJSON(templatePath, template, null, 2);

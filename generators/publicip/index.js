@@ -71,7 +71,8 @@ module.exports = class extends Generator {
         dnsSettings: {
           domainNameLabel: this.props.dnsname
         }
-      }
+      },
+      dependsOn: []
     });
 
     this.fs.writeJSON(templatePath, template, null, 2);

@@ -65,7 +65,8 @@ module.exports = class extends Generator {
         name: this.props.sku
       },
       kind: 'Storage',
-      properties: {}
+      properties: {},
+      dependsOn: []
     });
 
     this.fs.writeJSON(templatePath, template, null, 2);
