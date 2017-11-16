@@ -68,31 +68,35 @@ module.exports = class extends Generator {
   writing() {
     var templatePath = this.destinationPath('azuredeploy.json');
     var template = this.fs.readJSON(templatePath);
+    template = this.addResource(template, this.props);
+    this.fs.writeJSON(templatePath, template, null, 2);
+  }
+
+  addResource(template, properties) {
     template.resources.push({
       apiVersion: '2015-05-01-preview',
       type: 'Microsoft.Network/virtualNetworks',
-      name: this.props.name,
-      location: this.props.location,
+      name: properties.name,
+      location: properties.location,
       properties: {
         addressSpace: {
-          addressPrefixes: [this.props.addressSpace]
+          addressPrefixes: [properties.addressSpace]
         },
         dhcpOptions: {
           dnsServers: []
         },
         subnets: [
           {
-            name: this.props.subnetName,
+            name: properties.subnetName,
             properties: {
-              addressPrefix: this.props.subnetAddressSpace
+              addressPrefix: properties.subnetAddressSpace
             }
           }
         ]
       },
       dependsOn: []
     });
-
-    this.fs.writeJSON(templatePath, template, null, 2);
+    return template;
   }
 
   install() {

@@ -56,7 +56,7 @@ module.exports = class extends Generator {
   writing() {
     var templatePath = this.destinationPath('azuredeploy.json');
     var template = this.fs.readJSON(templatePath);
-    this.addResource(template);
+    template = this.addResource(template, this.props);
     this.fs.writeJSON(templatePath, template, null, 2);
   }
 
@@ -64,14 +64,14 @@ module.exports = class extends Generator {
     this.installDependencies();
   }
 
-  addResource(template) {
+  addResource(template, properties) {
     template.resources.push({
       type: 'Microsoft.Storage/storageAccounts',
-      name: this.props.name,
+      name: properties.name,
       apiVersion: '2016-01-01',
-      location: this.props.location,
+      location: properties.location,
       sku: {
-        name: this.props.sku
+        name: properties.sku
       },
       kind: 'Storage',
       properties: {},

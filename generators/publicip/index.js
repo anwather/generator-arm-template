@@ -61,21 +61,25 @@ module.exports = class extends Generator {
   writing() {
     var templatePath = this.destinationPath('azuredeploy.json');
     var template = this.fs.readJSON(templatePath);
+    template = template.addResource(template, this.props);
+    this.fs.writeJSON(templatePath, template, null, 2);
+  }
+
+  addResource(template, properties) {
     template.resources.push({
       apiVersion: '2015-05-01-preview',
       type: 'Microsoft.Network/publicIPAddresses',
-      name: this.props.name,
-      location: this.props.location,
+      name: properties.name,
+      location: properties.location,
       properties: {
-        publicIPAllocationMethod: this.props.allocationMethod,
+        publicIPAllocationMethod: properties.allocationMethod,
         dnsSettings: {
-          domainNameLabel: this.props.dnsname
+          domainNameLabel: properties.dnsname
         }
       },
       dependsOn: []
     });
-
-    this.fs.writeJSON(templatePath, template, null, 2);
+    return template;
   }
 
   install() {

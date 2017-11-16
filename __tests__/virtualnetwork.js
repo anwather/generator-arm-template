@@ -5,11 +5,11 @@ const helpers = require('yeoman-test');
 
 var generator;
 
-describe('generator-arm-template:storageaccount', () => {
+describe('generator-arm-template:virtualnetwork', () => {
   beforeAll(() => {
     generator = helpers.createGenerator(
-      'arm-template:storageaccount',
-      [path.join(__dirname, '../generators/storageaccount')],
+      'arm-template:virtualnetwork',
+      [path.join(__dirname, '../generators/virtualnetwork')],
       null,
       null
     );
@@ -28,8 +28,10 @@ describe('generator-arm-template:storageaccount', () => {
     template = generator.addResource(template, {
       name: 'testName',
       location: 'testLocation',
-      sku: 'Standard_LRS'
+      addressSpace: '192.168.0.0/16',
+      subnetName: 'subnet-1',
+      subnetAddressSpace: '192.168.0.0/16'
     });
-    assert.equal(template.resources[0].type, 'Microsoft.Storage/storageAccounts');
+    assert.equal(template.resources[0].type, 'Microsoft.Network/virtualNetworks');
   });
 });
