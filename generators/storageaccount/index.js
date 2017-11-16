@@ -1,0 +1,77 @@
+'use strict';
+const Generator = require('yeoman-generator');
+const chalk = require('chalk');
+
+module.exports = class extends Generator {
+  prompting() {
+    // Have Yeoman greet the user.
+    this.log(
+      chalk.blue('                          A                       \n') +
+        chalk.blue('                       AAAA                       \n') +
+        chalk.blue('                     AAAAAA AAA                   \n') +
+        chalk.blue('                  AAAAAAA  AAAAA                  \n') +
+        chalk.blue('                AAAAAAAA  AAAAAAA                 \n') +
+        chalk.blue('              AAAAAAAAA  AAAAAAAAA                \n') +
+        chalk.blue('            AAAAAAAAAA  AAAAAAAAAAA               \n') +
+        chalk.blue('           AAAAAAAAAA  AAAAAAAAAAAAAA             \n') +
+        chalk.blue('          AAAAAAAAAA  AAAAAAAAAAAAAAAA            \n') +
+        chalk.blue('         AAAAAAAAAA   AAAAAAAAAAAAAAAAA           \n') +
+        chalk.blue('        AAAAAAAAAA      AAAAAAAAAAAAAAAA          \n') +
+        chalk.blue('      AAAAAAAAAAA         AAAAAAAAAAAAAAA         \n') +
+        chalk.blue('     AAAAAAAAAAA            AAAAAAAAAAAAAA        \n') +
+        chalk.blue('    AAAAAAAAAAA               AAAAAAAAAAAAAA      \n') +
+        chalk.blue('   AAAAAAAAAAA                 AAAAAAAAAAAAAA     \n') +
+        chalk.blue('   AAAAAAAAAA                 AAAAAAAAAAAAAAAA    \n') +
+        chalk.blue('                  AAAAAAAAAAAAAAAAAAAAAAAAAAAAA   \n') +
+        chalk.blue('               AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA   \n') +
+        '\n\nWelcome to the Azure ARM Template project generator for storage accounts!\n'
+    );
+
+    const prompts = [
+      {
+        type: 'input',
+        name: 'name',
+        message: 'What is the name of the storage account?'
+      },
+      {
+        type: 'input',
+        name: 'location',
+        message: 'Where should the resource be created?',
+        default: '[resourceGroup().location]'
+      },
+      {
+        type: 'list',
+        name: 'sku',
+        message: 'What type of storage account should be created?',
+        choices: ['Standard_LRS', 'Standard_GRS', 'Standard_ZRS', 'Premium_LRS']
+      }
+    ];
+
+    return this.prompt(prompts).then(props => {
+      // To access props later use this.props.someAnswer;
+      this.props = props;
+    });
+  }
+
+  writing() {
+    var templatePath = this.destinationPath('azuredeploy.json');
+    var template = this.fs.readJSON(templatePath);
+    template.resources.push({
+      type: 'Microsoft.Storage/storageAccounts',
+      name: this.props.name,
+      apiVersion: '2016-01-01',
+      location: this.props.location,
+      sku: {
+        name: this.props.sku
+      },
+      kind: 'Storage',
+      properties: {}
+    });
+
+    this.fs.writeJSON(templatePath, template, null, 2);
+  }
+
+  install() {
+    this.installDependencies();
+  }
+};
