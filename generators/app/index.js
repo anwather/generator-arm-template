@@ -70,6 +70,4 @@ module.exports = class extends Generator {
       this.destinationPath('.vscode/launch.json')
     );
   }
-
-  install() {}
 };

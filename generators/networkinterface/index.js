@@ -141,6 +141,4 @@ module.exports = class extends Generator {
     template.resources.push(newResource);
     return template;
   }
-
-  install() {}
 };

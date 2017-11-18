@@ -87,6 +87,4 @@ module.exports = class extends Generator {
     // TODO: confirm the protected settings around the storage account stuff to see what is needed
     return template;
   }
-
-  install() {}
 };
