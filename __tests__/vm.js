@@ -4,6 +4,7 @@ const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
 
 var generator;
+var template;
 
 describe('generator-arm-template:vm', () => {
   beforeAll(() => {
@@ -14,9 +15,8 @@ describe('generator-arm-template:vm', () => {
       null
     );
   });
-
-  it('contains a storage account', () => {
-    var template = {
+  beforeEach(() => {
+    template = {
       $schema:
         'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#',
       contentVersion: '1.0.0.0',
@@ -25,6 +25,9 @@ describe('generator-arm-template:vm', () => {
       resources: [],
       outputs: {}
     };
+  });
+
+  it('contains a virtual machine', () => {
     template = generator._addResource(template, {
       name: 'testName',
       location: 'testLocation',

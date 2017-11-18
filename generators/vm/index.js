@@ -31,7 +31,13 @@ module.exports = class extends Generator {
       {
         type: 'input',
         name: 'name',
-        message: 'What is the name of the VM?'
+        message: 'What is the name of the VM?',
+        validate: function(input) {
+          if (input !== '') {
+            return true;
+          }
+          return false;
+        }
       },
       {
         type: 'input',
@@ -47,12 +53,24 @@ module.exports = class extends Generator {
       {
         type: 'input',
         name: 'username',
-        message: 'What is the username of the local admin account?'
+        message: 'What is the username of the local admin account?',
+        validate: function(input) {
+          if (input !== '') {
+            return true;
+          }
+          return false;
+        }
       },
       {
         type: 'input',
         name: 'password',
-        message: 'What is the password of the local admin account?'
+        message: 'What is the password of the local admin account?',
+        validate: function(input) {
+          if (input !== '') {
+            return true;
+          }
+          return false;
+        }
       },
       {
         type: 'input',
@@ -81,12 +99,24 @@ module.exports = class extends Generator {
       {
         type: 'input',
         name: 'storageAccount',
-        message: 'What storage account should be used for the default disk?'
+        message: 'What storage account should be used for the default disk?',
+        validate: function(input) {
+          if (input !== '') {
+            return true;
+          }
+          return false;
+        }
       },
       {
         type: 'input',
         name: 'nic',
-        message: 'What is the name of the NIC that should be used?'
+        message: 'What is the name of the NIC that should be used?',
+        validate: function(input) {
+          if (input !== '') {
+            return true;
+          }
+          return false;
+        }
       }
     ];
 
