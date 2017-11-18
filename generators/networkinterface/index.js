@@ -73,12 +73,12 @@ module.exports = class extends Generator {
   writing() {
     var templatePath = this.destinationPath('azuredeploy.json');
     var template = this.fs.readJSON(templatePath);
-    template = template.addResource(template, this.props);
+    template = this._addResource(template, this.props);
     this.fs.writeJSON(templatePath, template, null, 2);
   }
 
   _addResource(template, properties) {
-    template.resources.push({
+    var newResource = {
       apiVersion: '2015-05-01-preview',
       type: 'Microsoft.Network/networkInterfaces',
       name: properties.name,
@@ -89,8 +89,6 @@ module.exports = class extends Generator {
           {
             name: 'ipconfig1',
             properties: {
-              privateIPAllocationMethod: 'Static',
-              privateIPAddress: '192.168.0.4',
               publicIPAddress: {
                 id:
                   "[resourceId('Microsoft.Network/publicIPAddresses', '" +
@@ -109,9 +107,19 @@ module.exports = class extends Generator {
           }
         ]
       }
-    });
-    // TODO: Swap private IP in and set static/dynamic for allocation method
+    };
+
+    if (properties.privateIpAddress === '') {
+      newResource.properties.ipConfigurations[0].properties.privateIPAllocationMethod =
+        'Dynamic';
+    } else {
+      newResource.properties.ipConfigurations[0].properties.privateIPAllocationMethod =
+        'Static';
+      newResource.properties.ipConfigurations[0].properties.privateIPAddress =
+        properties.privateIpAddress;
+    }
     // TODO: remove the public IP address if there is none allocated
+    template.resources.push(newResource);
     return template;
   }
 

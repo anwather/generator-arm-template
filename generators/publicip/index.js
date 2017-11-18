@@ -61,7 +61,7 @@ module.exports = class extends Generator {
   writing() {
     var templatePath = this.destinationPath('azuredeploy.json');
     var template = this.fs.readJSON(templatePath);
-    template = template.addResource(template, this.props);
+    template = this._addResource(template, this.props);
     this.fs.writeJSON(templatePath, template, null, 2);
   }
 
