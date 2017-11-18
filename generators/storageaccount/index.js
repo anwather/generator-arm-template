@@ -60,9 +60,7 @@ module.exports = class extends Generator {
     this.fs.writeJSON(templatePath, template, null, 2);
   }
 
-  install() {
-    this.installDependencies();
-  }
+  install() {}
 
   addResource(template, properties) {
     template.resources.push({
