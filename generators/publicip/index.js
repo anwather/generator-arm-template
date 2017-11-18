@@ -65,7 +65,7 @@ module.exports = class extends Generator {
     this.fs.writeJSON(templatePath, template, null, 2);
   }
 
-  addResource(template, properties) {
+  _addResource(template, properties) {
     template.resources.push({
       apiVersion: '2015-05-01-preview',
       type: 'Microsoft.Network/publicIPAddresses',

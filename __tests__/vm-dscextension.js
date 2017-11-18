@@ -25,7 +25,7 @@ describe('generator-arm-template:vm-dscextension', () => {
       resources: [],
       outputs: {}
     };
-    template = generator.addResource(template, {
+    template = generator._addResource(template, {
       vmName: 'testName',
       location: 'testLocation',
       modulesUrl: 'test',

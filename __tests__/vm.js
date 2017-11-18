@@ -25,7 +25,7 @@ describe('generator-arm-template:vm', () => {
       resources: [],
       outputs: {}
     };
-    template = generator.addResource(template, {
+    template = generator._addResource(template, {
       name: 'testName',
       location: 'testLocation',
       username: 'admin',

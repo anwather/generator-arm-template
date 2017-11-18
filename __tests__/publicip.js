@@ -25,7 +25,7 @@ describe('generator-arm-template:publicip', () => {
       resources: [],
       outputs: {}
     };
-    template = generator.addResource(template, {
+    template = generator._addResource(template, {
       name: 'testName',
       location: 'testLocation',
       dnsName: 'test',

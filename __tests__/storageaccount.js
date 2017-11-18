@@ -25,7 +25,7 @@ describe('generator-arm-template:storageaccount', () => {
       resources: [],
       outputs: {}
     };
-    template = generator.addResource(template, {
+    template = generator._addResource(template, {
       name: 'testName',
       location: 'testLocation',
       sku: 'Standard_LRS'

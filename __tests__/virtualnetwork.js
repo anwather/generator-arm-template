@@ -25,7 +25,7 @@ describe('generator-arm-template:virtualnetwork', () => {
       resources: [],
       outputs: {}
     };
-    template = generator.addResource(template, {
+    template = generator._addResource(template, {
       name: 'testName',
       location: 'testLocation',
       addressSpace: '192.168.0.0/16',
