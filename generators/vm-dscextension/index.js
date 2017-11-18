@@ -74,7 +74,7 @@ module.exports = class extends Generator {
       type: 'Microsoft.Compute/virtualMachines/extensions',
       name: properties.vmName + '/Microsoft.Powershell.DSC',
       apiVersion: '2015-05-01-preview',
-      location: '[resourceGroup().location]',
+      location: properties.location,
       dependsOn: [
         "[resourceId('Microsoft.Compute/virtualMachines', '" + properties.vmName + "')]"
       ],
