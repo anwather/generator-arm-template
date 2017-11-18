@@ -31,7 +31,13 @@ module.exports = class extends Generator {
       {
         type: 'input',
         name: 'name',
-        message: 'What is the name of the network interface?'
+        message: 'What is the name of the network interface?',
+        validate: function(input) {
+          if (input !== '') {
+            return true;
+          }
+          return false;
+        }
       },
       {
         type: 'input',
@@ -49,13 +55,25 @@ module.exports = class extends Generator {
         type: 'input',
         name: 'networkName',
         message:
-          'What is the name of the virtual network address to assoicate to this NIC?'
+          'What is the name of the virtual network address to assoicate to this NIC?',
+        validate: function(input) {
+          if (input !== '') {
+            return true;
+          }
+          return false;
+        }
       },
       {
         type: 'input',
         name: 'subnetName',
         message:
-          'What is the name of the subnet in the virtual network to put this NIC in to?'
+          'What is the name of the subnet in the virtual network to put this NIC in to?',
+        validate: function(input) {
+          if (input !== '') {
+            return true;
+          }
+          return false;
+        }
       },
       {
         type: 'input',
@@ -89,12 +107,6 @@ module.exports = class extends Generator {
           {
             name: 'ipconfig1',
             properties: {
-              publicIPAddress: {
-                id:
-                  "[resourceId('Microsoft.Network/publicIPAddresses', '" +
-                  properties.publicIpName +
-                  "')]"
-              },
               subnet: {
                 id:
                   "[concat(resourceId('Microsoft.Network/virtualNetworks', '" +
@@ -118,7 +130,14 @@ module.exports = class extends Generator {
       newResource.properties.ipConfigurations[0].properties.privateIPAddress =
         properties.privateIpAddress;
     }
-    // TODO: remove the public IP address if there is none allocated
+    if (properties.publicIpName !== '') {
+      newResource.properties.ipConfigurations[0].properties.publicIPAddress = {
+        id:
+          "[resourceId('Microsoft.Network/publicIPAddresses', '" +
+          properties.publicIpName +
+          "')]"
+      };
+    }
     template.resources.push(newResource);
     return template;
   }
