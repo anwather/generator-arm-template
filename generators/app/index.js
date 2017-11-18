@@ -31,7 +31,8 @@ module.exports = class extends Generator {
       {
         type: 'input',
         name: 'rgName',
-        message: 'What resource group name would you like to use?'
+        message: 'What resource group name would you like to use?',
+        store: true
       },
       {
         type: 'input',
