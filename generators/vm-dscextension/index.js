@@ -81,7 +81,8 @@ module.exports = class extends Generator {
       properties: {
         publisher: 'Microsoft.Powershell',
         type: 'DSC',
-        typeHandlerVersion: '2.*',
+        typeHandlerVersion: '2.20',
+        autoUpgradeMinorVersion: true,
         settings: {
           ModulesUrl: properties.modulesUrl,
           ConfigurationFunction: properties.configurationFunction,
