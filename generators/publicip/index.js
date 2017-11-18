@@ -31,7 +31,13 @@ module.exports = class extends Generator {
       {
         type: 'input',
         name: 'name',
-        message: 'What is the name of the public IP?'
+        message: 'What is the name of the public IP?',
+        validate: function(input) {
+          if (input !== '') {
+            return true;
+          }
+          return false;
+        }
       },
       {
         type: 'input',
@@ -42,7 +48,7 @@ module.exports = class extends Generator {
       {
         type: 'input',
         name: 'dnsname',
-        message: 'What is the prefix for the public DNS name?'
+        message: 'What is the prefix for the public DNS name? (blank for none)'
       },
       {
         type: 'list',
@@ -66,19 +72,22 @@ module.exports = class extends Generator {
   }
 
   _addResource(template, properties) {
-    template.resources.push({
+    var newResource = {
       apiVersion: '2015-05-01-preview',
       type: 'Microsoft.Network/publicIPAddresses',
       name: properties.name,
       location: properties.location,
       properties: {
-        publicIPAllocationMethod: properties.allocationMethod,
-        dnsSettings: {
-          domainNameLabel: properties.dnsname
-        }
+        publicIPAllocationMethod: properties.allocationMethod
       },
       dependsOn: []
-    });
+    };
+    if (properties.dnsname !== '') {
+      newResource.properties.dnsSettings = {
+        domainNameLabel: properties.dnsname
+      };
+    }
+    template.resources.push(newResource);
     return template;
   }
 
