@@ -31,7 +31,13 @@ module.exports = class extends Generator {
       {
         type: 'input',
         name: 'name',
-        message: 'What is the name of the network?'
+        message: 'What is the name of the network?',
+        validate: function(input) {
+          if (input !== '') {
+            return true;
+          }
+          return false;
+        }
       },
       {
         type: 'input',
@@ -43,7 +49,14 @@ module.exports = class extends Generator {
         type: 'input',
         name: 'addressSpace',
         message: 'What address space should be used?',
-        default: '192.168.0.0/16'
+        default: '192.168.0.0/16',
+        validate: function(input) {
+          // TODO: Add a regex here to validate the pattern of what is entered
+          if (input !== '') {
+            return true;
+          }
+          return false;
+        }
       },
       {
         type: 'input',
@@ -56,6 +69,12 @@ module.exports = class extends Generator {
         name: 'subnetAddressSpace',
         message: 'What is the address space of the default subnet?',
         default: '192.168.0.0/16'
+      },
+      {
+        type: 'input',
+        name: 'dnsServers',
+        message:
+          'What custom DNS servers should be used? (comma seperated list, blank for Azure DNS)'
       }
     ];
 
@@ -73,7 +92,7 @@ module.exports = class extends Generator {
   }
 
   _addResource(template, properties) {
-    template.resources.push({
+    var newResource = {
       apiVersion: '2015-05-01-preview',
       type: 'Microsoft.Network/virtualNetworks',
       name: properties.name,
@@ -95,7 +114,12 @@ module.exports = class extends Generator {
         ]
       },
       dependsOn: []
-    });
+    };
+    if (properties.dnsServers !== '') {
+      var dnsServers = properties.dnsServers.split(',');
+      newResource.properties.dhcpOptions.dnsServers = dnsServers;
+    }
+    template.resources.push(newResource);
     return template;
   }
 };
