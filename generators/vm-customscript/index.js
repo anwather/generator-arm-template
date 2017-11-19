@@ -60,6 +60,8 @@ module.exports = class extends Generator {
   }
 
   _addResource(template, properties) {
+    var urlParts = properties.scriptUrl.split('/');
+    var scriptName = urlParts[urlParts.length - 1];
     template.resources.push({
       apiVersion: '2015-06-15',
       type: 'Microsoft.Compute/virtualMachines/extensions',
@@ -77,13 +79,13 @@ module.exports = class extends Generator {
           fileUris: [properties.scriptUrl]
         },
         protectedSettings: {
-          commandToExecute: 'powershell -ExecutionPolicy Unrestricted -File DevSetup.ps1',
+          commandToExecute:
+            'powershell -ExecutionPolicy Unrestricted -File ' + scriptName,
           storageAccountName: "[parameters('storageAccountName')]",
           storageAccountKey: "[parameters('storageAccountKey')]"
         }
       }
     });
-    // TODO: Fix the command to use the file name of the script in the command
     // TODO: confirm the protected settings around the storage account stuff to see what is needed
     return template;
   }
