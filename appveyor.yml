@@ -25,6 +25,13 @@ test_script:
     $wc = New-Object 'System.Net.WebClient'
     $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", `
                    (Resolve-Path C:\mocharesults.xml))
+    [xml]$results = Get-Content C:\mocharesults.xml
+    $failure = $results.SelectSingleNode("//failure")
+    if ($failure -ne $null) 
+    { 
+        $host.SetShouldExit(1)
+        Write-Host "Forcing build failure due to javascript unit test failure(s)"
+    }
 
 deploy_script:
   - ps: |
