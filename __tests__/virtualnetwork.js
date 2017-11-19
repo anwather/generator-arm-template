@@ -7,7 +7,7 @@ var generator;
 var template;
 
 describe('generator-arm-template:virtualnetwork', () => {
-  beforeAll(() => {
+  before(() => {
     generator = helpers.createGenerator(
       'arm-template:virtualnetwork',
       [path.join(__dirname, '../generators/virtualnetwork')],

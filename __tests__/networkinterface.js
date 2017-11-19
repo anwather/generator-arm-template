@@ -7,7 +7,7 @@ var generator;
 var template;
 
 describe('generator-arm-template:networkinterface', () => {
-  beforeAll(() => {
+  before(() => {
     generator = helpers.createGenerator(
       'arm-template:networkinterface',
       [path.join(__dirname, '../generators/networkinterface')],

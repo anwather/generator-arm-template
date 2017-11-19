@@ -4,7 +4,7 @@ const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
 
 describe('generator-arm-template:app', () => {
-  beforeAll(() => {
+  before(() => {
     return helpers.run(path.join(__dirname, '../generators/app')).withPrompts({
       rgName: 'rgNameTest',
       region: 'regionTest'

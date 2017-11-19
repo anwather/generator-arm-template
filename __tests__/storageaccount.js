@@ -6,7 +6,7 @@ const helpers = require('yeoman-test');
 var generator;
 
 describe('generator-arm-template:storageaccount', () => {
-  beforeAll(() => {
+  before(() => {
     generator = helpers.createGenerator(
       'arm-template:storageaccount',
       [path.join(__dirname, '../generators/storageaccount')],

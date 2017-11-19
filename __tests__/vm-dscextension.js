@@ -6,7 +6,7 @@ const helpers = require('yeoman-test');
 var generator;
 
 describe('generator-arm-template:vm-dscextension', () => {
-  beforeAll(() => {
+  before(() => {
     generator = helpers.createGenerator(
       'arm-template:vm-dscextension',
       [path.join(__dirname, '../generators/vm-dscextension')],

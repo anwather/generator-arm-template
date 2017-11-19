@@ -7,7 +7,7 @@ var generator;
 var template;
 
 describe('generator-arm-template:vm', () => {
-  beforeAll(() => {
+  before(() => {
     generator = helpers.createGenerator(
       'arm-template:vm',
       [path.join(__dirname, '../generators/vm')],

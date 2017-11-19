@@ -7,7 +7,7 @@ var generator;
 var template;
 
 describe('generator-arm-template:publicip', () => {
-  beforeAll(() => {
+  before(() => {
     generator = helpers.createGenerator(
       'arm-template:publicip',
       [path.join(__dirname, '../generators/publicip')],

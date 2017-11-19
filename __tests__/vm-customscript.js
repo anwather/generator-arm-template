@@ -6,7 +6,7 @@ const helpers = require('yeoman-test');
 var generator;
 
 describe('generator-arm-template:vm-customscript', () => {
-  beforeAll(() => {
+  before(() => {
     generator = helpers.createGenerator(
       'arm-template:vm-customscript',
       [path.join(__dirname, '../generators/vm-customscript')],
