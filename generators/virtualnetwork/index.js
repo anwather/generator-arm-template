@@ -51,8 +51,14 @@ module.exports = class extends Generator {
         message: 'What address space should be used?',
         default: '192.168.0.0/16',
         validate: function(input) {
-          // TODO: Add a regex here to validate the pattern of what is entered
           if (input !== '') {
+            var pattern = new RegExp(
+              /((25[0-5]|2[0-4][0-9]|[1]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[1]?[0-9][0-9]?)\/([0-9]){1,2}/g
+            );
+            var result = pattern.test(input);
+            if (result === false) {
+              return false;
+            }
             return true;
           }
           return false;
