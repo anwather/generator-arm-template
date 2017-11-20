@@ -15,10 +15,6 @@ before_build:
 build_script:
   - npm install
 
-cache:
-  - node_modules -> package.json
-  - '%APPDATA%\npm-cache'
-
 test_script:
 - cmd: npm run test:ci
 - ps: |
