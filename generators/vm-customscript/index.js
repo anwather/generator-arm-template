@@ -43,6 +43,17 @@ module.exports = class extends Generator {
         type: 'input',
         name: 'scriptUrl',
         message: 'What is the URL of the script to download and run?'
+      },
+      {
+        type: 'input',
+        name: 'storageAccountKey',
+        message: 'What is the key for this storage account?',
+        when: function(answers) {
+          if (answers.scriptUrl.includes('.blob.core.windows.net')) {
+            return true;
+          }
+          return false;
+        }
       }
     ];
 
@@ -62,7 +73,7 @@ module.exports = class extends Generator {
   _addResource(template, properties) {
     var urlParts = properties.scriptUrl.split('/');
     var scriptName = urlParts[urlParts.length - 1];
-    template.resources.push({
+    var newResource = {
       apiVersion: '2015-06-15',
       type: 'Microsoft.Compute/virtualMachines/extensions',
       name: properties.vmName + '/CustomScript1',
@@ -79,14 +90,21 @@ module.exports = class extends Generator {
           fileUris: [properties.scriptUrl]
         },
         protectedSettings: {
-          commandToExecute:
-            'powershell -ExecutionPolicy Unrestricted -File ' + scriptName,
-          storageAccountName: "[parameters('storageAccountName')]",
-          storageAccountKey: "[parameters('storageAccountKey')]"
+          commandToExecute: 'powershell -ExecutionPolicy Unrestricted -File ' + scriptName
         }
       }
-    });
-    // TODO: confirm the protected settings around the storage account stuff to see what is needed
+    };
+
+    if (properties.scriptUrl.includes('.blob.core.windows.net')) {
+      newResource.properties.protectedSettings.storageAccountName = urlParts[2].substring(
+        0,
+        urlParts[2].indexOf('.')
+      );
+      newResource.properties.protectedSettings.storageAccountKey =
+        properties.storageAccountKey;
+    }
+
+    template.resources.push(newResource);
     return template;
   }
 };
