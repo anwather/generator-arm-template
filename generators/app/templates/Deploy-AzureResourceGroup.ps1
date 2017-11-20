@@ -63,7 +63,7 @@ if ($null -eq $azCtx.Account)
             {
                 throw " - Please select *only one* subscription."
             }
-            Select-AzureRmSubscription -SubscriptionName $subscriptionDetails[0].SubscriptionName
+            Select-AzureRmSubscription -SubscriptionName $subscriptionDetails[0].Name
         }
     }
 }
