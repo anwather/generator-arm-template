@@ -1,5 +1,13 @@
-# generator-arm-template [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
-> Azure Resource Manager template package for VS Code
+# generator-arm-template
+
+[![NPM version][npm-image]][npm-url] [![Build status][appveyor-image]][appveyor-url]
+ [![Dependency Status][daviddm-image]][daviddm-url]
+> Azure Resource Manager template tools, built especially for VS Code!
+
+If you author Azure Resource Manager (ARM) templates with Visual Studio code, then
+this is the package for you. Leverage the power of [Yeoman](http://yeoman.io) to speed
+up your development. Leverage the main arm-template generator to get you started, and
+then add resources with the sub-generators to build up your template!
 
 ## Installation
 
@@ -16,21 +24,36 @@ Then generate your new project:
 yo arm-template
 ```
 
-## Getting To Know Yeoman
+# Generator list
 
- * Yeoman has a heart of gold.
- * Yeoman is a person with feelings and opinions, but is very easy to work with.
- * Yeoman can be too opinionated at times but is easily convinced not to be.
- * Feel free to [learn more about Yeoman](http://yeoman.io/).
+As well as the main generator, you can also use the following sub-generators. These
+are all designed to modify ARM template files that were created with the main generator
+so be sure to call that first.
+
+* networkinterface
+* publicip
+* storageaccount
+* virtualnetwork
+* vm
+* vm-customscript
+* vm-dscextension
+
+To call a sub-generator use the following syntax (this example will create a
+storage account, just swap in the sub-generator you wish to use from the
+above list).
+
+```bash
+yo arm-template:storageaccount
+```
+
 
 ## License
 
 MIT © [Brian Farnhill](http://brianfarnhill.com)
 
-
 [npm-image]: https://badge.fury.io/js/generator-arm-template.svg
 [npm-url]: https://npmjs.org/package/generator-arm-template
-[travis-image]: https://travis-ci.org/BrianFarnhill/generator-arm-template.svg?branch=master
-[travis-url]: https://travis-ci.org/BrianFarnhill/generator-arm-template
 [daviddm-image]: https://david-dm.org/BrianFarnhill/generator-arm-template.svg?theme=shields.io
 [daviddm-url]: https://david-dm.org/BrianFarnhill/generator-arm-template
+[appveyor-image]: https://ci.appveyor.com/api/projects/status/jfhys9pjk393q445?svg=true
+[appveyor-url]: https://ci.appveyor.com/project/BrianFarnhill/generator-arm-template
