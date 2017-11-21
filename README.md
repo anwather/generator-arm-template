@@ -24,7 +24,7 @@ Then generate your new project:
 yo arm-template
 ```
 
-# Generator list
+## Generator list
 
 As well as the main generator, you can also use the following sub-generators. These
 are all designed to modify ARM template files that were created with the main generator
@@ -46,6 +46,9 @@ above list).
 yo arm-template:storageaccount
 ```
 
+## Change log
+
+For a full history of changes check out the [Change log](CHANGELOG)
 
 ## License
 
