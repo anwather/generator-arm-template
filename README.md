@@ -15,6 +15,7 @@ First, install [Yeoman](http://yeoman.io) and generator-arm-template using [npm]
 
 ```bash
 npm install -g yo
+npm install -g yeoman-generator
 npm install -g generator-arm-template
 ```
 
