@@ -48,7 +48,7 @@ yo arm-template:storageaccount
 
 ## Change log
 
-For a full history of changes check out the [Change log](CHANGELOG)
+For a full history of changes check out the [Change log](CHANGELOG.md)
 
 ## License
 
