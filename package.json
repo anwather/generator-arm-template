@@ -1,6 +1,6 @@
 {
   "name": "generator-arm-template",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description":
     "Azure Resource Manager template tools, built especially for VS Code!",
   "homepage": "https://github.com/BrianFarnhill/generator-arm-template",
